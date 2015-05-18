@@ -16,7 +16,7 @@ type Client struct {
 }
 
 type ClientOptions struct {
-	ghToken, gheToken, gheURL string
+	GhToken, GheToken, GheURL string
 }
 
 type tokenSource struct {
@@ -37,7 +37,7 @@ func NewClient(clientOptions *ClientOptions) *Client {
 
 	// Github
 	ghTokenSource := &tokenSource{
-		&oauth2.Token{AccessToken: clientOptions.ghToken},
+		&oauth2.Token{AccessToken: clientOptions.GhToken},
 	}
 	ghOAuthClient := oauth2.NewClient(oauth2.NoContext, ghTokenSource)
 	ghClient := github.NewClient(ghOAuthClient)
@@ -45,11 +45,11 @@ func NewClient(clientOptions *ClientOptions) *Client {
 
 	// Github Enterprise
 	gheTokenSource := &tokenSource{
-		&oauth2.Token{AccessToken: clientOptions.gheToken},
+		&oauth2.Token{AccessToken: clientOptions.GheToken},
 	}
 	gheOAuthClient := oauth2.NewClient(oauth2.NoContext, gheTokenSource)
 	gheClient := github.NewClient(gheOAuthClient)
-	baseURL, _ := url.Parse(clientOptions.gheURL)
+	baseURL, _ := url.Parse(clientOptions.GheURL)
 	gheClient.BaseURL = baseURL
 	client.gheClient = gheClient
 
